@@ -222,8 +222,8 @@ open class FSPagerView: UIView,UICollectionViewDataSource,UICollectionViewDelega
     internal weak var collectionView: FSPagerCollectionView!
     internal weak var contentView: UIView!
     internal var timer: Timer?
-    private(set) var numberOfItems: Int = 0
-    private(set) var numberOfSections: Int = 0
+    open private(set) var numberOfItems: Int = 0
+    open private(set) var numberOfSections: Int = 0
     
     fileprivate var dequeingSection = 0
     fileprivate var centermostIndexPath: IndexPath {
@@ -512,7 +512,8 @@ open class FSPagerView: UIView,UICollectionViewDataSource,UICollectionViewDelega
     @objc(scrollToItemAtIndex:animated:)
     open func scrollToItem(at index: Int, animated: Bool) {
         guard index < self.numberOfItems else {
-            fatalError("index \(index) is out of range [0...\(self.numberOfItems-1)]")
+            debugPrint("index \(index) is out of range [0...\(self.numberOfItems-1)]")
+            return
         }
         let indexPath = { () -> IndexPath in
             if let indexPath = self.possibleTargetingIndexPath, indexPath.item == index {
